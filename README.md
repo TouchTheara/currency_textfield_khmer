@@ -6,7 +6,7 @@ A Package solve keyboard of textfield problem with local keyboard in asia of ","
 ### Installation
 ```dart
 dependencies:
-      textfield_tags: ^2.0.2
+      currency_textfield_khmer: ^0.0.1
 ```
 
 #### Usage
@@ -25,4 +25,4 @@ dependencies:
 ```
 ## Copyright & License
 
-This open source project authorized by https://pub.dev/packages/get , and the license is MIT.
+This open source project authorized by https://pub.dev/packages/intl, https://pub.dev/packages/pattern_formatter, and the license is MIT.

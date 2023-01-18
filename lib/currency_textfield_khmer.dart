@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:pattern_formatter/pattern_formatter.dart';
 
 /// A Calculator.
 class CurrencyTextFieldKhmer extends StatelessWidget {
@@ -228,9 +230,13 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
       child: TextField(
         maxLengthEnforcement: MaxLengthEnforcement.none,
         onChanged: (value) {
-          if (isCurrencyFormat) {
-            inputValue(value);
-            onchange?.call(value);
+          if (!kIsWeb) {
+            if (isCurrencyFormat) {
+              inputValue(value);
+              onchange?.call(value);
+            } else {
+              onchange?.call(value);
+            }
           } else {
             onchange?.call(value);
           }
@@ -249,6 +255,7 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
         ),
         keyboardType: keyboardType,
         inputFormatters: [
+          if (kIsWeb) ThousandsFormatter(allowFraction: true),
           if (isCurrencyFormat) DecimalTextInputFormatter(decimalRange: 2),
           LengthLimitingTextInputFormatter(maxLength),
           ...inputFormatters ?? []
