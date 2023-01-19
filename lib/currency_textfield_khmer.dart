@@ -27,8 +27,21 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
       this.margin,
       this.maxLength = 10,
       this.contentPadding,
+      this.prefix,
+      this.prefixIcon,
+      this.prefixStyle,
+      this.prefixIconColor,
+      this.prefixIconConstraints,
+      this.suffix,
+      this.suffixIcon,
+      this.suffixStyle,
+      this.suffixIconColor,
+      this.suffixIconConstraints,
+      this.suffixText,
+      this.prefixText,
       required this.isCurrencyFormat});
   final TextEditingController controller;
+
   final String? hintext;
   final double? raduis;
   final EdgeInsets? padding;
@@ -43,6 +56,18 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
   final TextInputType? keyboardType;
   final int maxLength;
   final bool isCurrencyFormat;
+  final Widget? prefix;
+  final Widget? prefixIcon;
+  final TextStyle? prefixStyle;
+  final Color? prefixIconColor;
+  final BoxConstraints? prefixIconConstraints;
+  final String? prefixText;
+  final Widget? suffix;
+  final Widget? suffixIcon;
+  final TextStyle? suffixStyle;
+  final Color? suffixIconColor;
+  final BoxConstraints? suffixIconConstraints;
+  final String? suffixText;
   @override
   Widget build(BuildContext context) {
     final sizeWidth = MediaQuery.of(context).size.width;
@@ -244,6 +269,18 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
         controller: controller,
         style: Theme.of(context).textTheme.headline4,
         decoration: InputDecoration(
+          prefix: prefix,
+          prefixIcon: prefixIcon,
+          prefixStyle: prefixStyle,
+          prefixIconColor: prefixIconColor,
+          prefixIconConstraints: prefixIconConstraints,
+          prefixText: prefixText,
+          suffix: suffix,
+          suffixIcon: suffixIcon,
+          suffixStyle: suffixStyle,
+          suffixIconColor: suffixIconColor,
+          suffixIconConstraints: suffixIconConstraints,
+          suffixText: suffixText,
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,

@@ -6,7 +6,7 @@ A Package solve keyboard of textfield problem with local keyboard in asia of ","
 ### Installation
 ```dart
 dependencies:
-      currency_textfield_khmer: ^0.0.1
+      currency_textfield_khmer: ^0.0.2
 ```
 
 #### Usage
