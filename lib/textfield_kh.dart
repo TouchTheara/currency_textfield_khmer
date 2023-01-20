@@ -368,6 +368,7 @@ class TextFieldKh extends StatelessWidget {
                 start = start - 1;
               }
             });
+            onchange?.call(value);
           }
         },
         controller: controller,
