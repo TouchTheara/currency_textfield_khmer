@@ -77,11 +77,10 @@ class TextFieldKh extends StatelessWidget {
       this.focusedBorder,
       this.onChangeDone,
       this.onChangeStart,
-      this.isTextFieldSearch = false,
       this.isCurrencyFormat = false});
   final Function? onChangeDone;
   final Function? onChangeStart;
-  final bool isTextFieldSearch;
+
   final InputBorder? border;
   final InputBorder? focusedBorder;
   final InputBorder? enabledBorder;
@@ -344,30 +343,28 @@ class TextFieldKh extends StatelessWidget {
             if (isCurrencyFormat) {
               inputValue(value);
               onchange?.call(value);
+            } else if (onChangeDone != null || onChangeStart != null) {
+              int start = 1000;
+              Timer? timer;
+              start = 2;
+              const oneDecimal = Duration(milliseconds: 100);
+              if (timer != null) {
+                timer.cancel();
+              }
+              timer = Timer.periodic(oneDecimal, (Timer times) {
+                if (start < 1) {
+                  times.cancel();
+                  debugPrint("here");
+                  onChangeDone?.call();
+                } else {
+                  onChangeStart?.call();
+                  start = start - 1;
+                }
+              });
             } else {
               onchange?.call(value);
             }
           } else {
-            onchange?.call(value);
-          }
-          if (isTextFieldSearch) {
-            int start = 1000;
-            Timer? timer;
-            start = 2;
-            const oneDecimal = Duration(milliseconds: 100);
-            if (timer != null) {
-              timer.cancel();
-            }
-            timer = Timer.periodic(oneDecimal, (Timer times) {
-              if (start < 1) {
-                times.cancel();
-                debugPrint("here");
-                onChangeDone?.call();
-              } else {
-                onChangeStart?.call();
-                start = start - 1;
-              }
-            });
             onchange?.call(value);
           }
         },
