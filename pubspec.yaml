@@ -1,7 +1,7 @@
-name: currency_textfield_khmer
+name: textfield_kh
 description: A Package solve keyboard of textfield problem with local keyboard in asia of "," and "." and this package make easy to using and customization textfield like pro textfield. 
-version: 0.0.2
-homepage: https://github.com/TouchTheara/currency_textfield_khmer
+version: 0.0.5
+homepage: https://github.com/TouchTheara/textfield_kh
 
 environment:
   sdk: '>=2.18.6 <3.0.0'
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   intl: ^0.17.0
   pattern_formatter: ^2.0.0
   

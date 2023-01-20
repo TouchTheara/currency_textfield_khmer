@@ -1,5 +1,6 @@
-library currency_textfield_khmer;
+library textfield_kh;
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:pattern_formatter/pattern_formatter.dart';
 
 /// A Calculator.
-class CurrencyTextFieldKhmer extends StatelessWidget {
-  const CurrencyTextFieldKhmer(
+class TextFieldKh extends StatelessWidget {
+  const TextFieldKh(
       {super.key,
       required this.controller,
       this.hintext = "Input",
@@ -39,7 +40,60 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
       this.suffixIconConstraints,
       this.suffixText,
       this.prefixText,
-      required this.isCurrencyFormat});
+      this.maxlenght,
+      this.inputFormatterList,
+      this.validateText,
+      this.onEditingComplete,
+      this.focusScope,
+      this.isReadOnly,
+      this.initialValue,
+      this.onChange,
+      this.labelText,
+      this.hintText,
+      this.type,
+      this.validate,
+      this.onTap,
+      this.autoFocus,
+      this.onSave,
+      this.isRequired,
+      this.isValidate,
+      this.textInputAction,
+      this.enable = true,
+      this.minLines,
+      this.onFieldSubmitted,
+      this.validateWidget,
+      this.hintStyle,
+      this.label,
+      this.labelTextStyle,
+      this.icon,
+      this.iconColor,
+      this.isCollapsed = false,
+      this.decorationOutLine,
+      this.decorationTextField,
+      this.border,
+      this.disabledBorder,
+      this.enabledBorder,
+      this.errorBorder,
+      this.focusedBorder,
+      this.onChangeDone,
+      this.onChangeStart,
+      this.isTextFieldSearch = false,
+      this.isCurrencyFormat = false});
+  final Function? onChangeDone;
+  final Function? onChangeStart;
+  final bool isTextFieldSearch;
+  final InputBorder? border;
+  final InputBorder? focusedBorder;
+  final InputBorder? enabledBorder;
+  final InputBorder? errorBorder;
+  final InputBorder? disabledBorder;
+  final InputDecoration? decorationTextField;
+  final Decoration? decorationOutLine;
+  final Widget? icon;
+  final Color? iconColor;
+  final bool isCollapsed;
+
+  final TextInputAction? textInputAction;
   final TextEditingController controller;
 
   final String? hintext;
@@ -51,7 +105,7 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
   final Color? color;
   final double? width;
   final double? height;
-  final int? style;
+  final TextStyle? style;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final int maxLength;
@@ -68,6 +122,36 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
   final Color? suffixIconColor;
   final BoxConstraints? suffixIconConstraints;
   final String? suffixText;
+  final List<TextInputFormatter>? inputFormatterList;
+  final String? initialValue;
+  final String? validateText;
+  final ValueChanged<String>? onChange;
+  final String? labelText;
+  final String? hintText;
+  final String? type;
+
+  final FormFieldValidator<String>? validate;
+  final Function? onTap;
+  final FormFieldSetter<String>? onSave;
+  final ValueChanged<String>? onFieldSubmitted;
+
+  final int? minLines;
+
+  final bool? isRequired;
+  final bool? isValidate;
+  final bool? isReadOnly;
+  final bool? autoFocus;
+
+  final FocusNode? focusScope;
+  final VoidCallback? onEditingComplete;
+  final bool? enable;
+
+  final int? maxlenght;
+  final Widget? validateWidget;
+  final TextStyle? hintStyle;
+  final Widget? label;
+  final TextStyle? labelTextStyle;
+
   @override
   Widget build(BuildContext context) {
     final sizeWidth = MediaQuery.of(context).size.width;
@@ -248,11 +332,12 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
       height: height ?? sizeHeight * 0.1,
       padding: padding,
       margin: margin,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.all(Radius.circular(raduis!)),
-      ),
-      child: TextField(
+      decoration: decorationOutLine ??
+          BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.all(Radius.circular(raduis!)),
+          ),
+      child: TextFormField(
         maxLengthEnforcement: MaxLengthEnforcement.none,
         onChanged: (value) {
           if (!kIsWeb) {
@@ -265,38 +350,97 @@ class CurrencyTextFieldKhmer extends StatelessWidget {
           } else {
             onchange?.call(value);
           }
+          if (isTextFieldSearch) {
+            int start = 1000;
+            Timer? timer;
+            start = 2;
+            const oneDecimal = Duration(milliseconds: 100);
+            if (timer != null) {
+              timer.cancel();
+            }
+            timer = Timer.periodic(oneDecimal, (Timer times) {
+              if (start < 1) {
+                times.cancel();
+                debugPrint("here");
+                onChangeDone?.call();
+              } else {
+                onChangeStart?.call();
+                start = start - 1;
+              }
+            });
+          }
         },
         controller: controller,
-        style: Theme.of(context).textTheme.headline4,
-        decoration: InputDecoration(
-          prefix: prefix,
-          prefixIcon: prefixIcon,
-          prefixStyle: prefixStyle,
-          prefixIconColor: prefixIconColor,
-          prefixIconConstraints: prefixIconConstraints,
-          prefixText: prefixText,
-          suffix: suffix,
-          suffixIcon: suffixIcon,
-          suffixStyle: suffixStyle,
-          suffixIconColor: suffixIconColor,
-          suffixIconConstraints: suffixIconConstraints,
-          suffixText: suffixText,
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          hintStyle: Theme.of(context).textTheme.headline4,
-          hintText: (hintext),
-          contentPadding: contentPadding,
-        ),
+        style: style ?? Theme.of(context).textTheme.headline4,
+        decoration: decorationTextField ??
+            InputDecoration(
+              icon: icon,
+              iconColor: iconColor,
+              isCollapsed: isCollapsed,
+              prefix: prefixIcon == null
+                  ? prefix
+                  : const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+              prefixIcon: prefixIcon,
+              prefixStyle: prefixStyle,
+              prefixIconColor: prefixIconColor,
+              prefixIconConstraints: prefixIcon == null
+                  ? prefixIconConstraints
+                  : const BoxConstraints(maxHeight: 50, maxWidth: 50),
+              prefixText: prefixText,
+              suffix: suffix,
+              suffixIcon: suffixIcon,
+              suffixStyle: suffixStyle,
+              suffixIconColor: suffixIconColor,
+              suffixIconConstraints: suffixIconConstraints,
+              suffixText: suffixText,
+              border: border ?? InputBorder.none,
+              focusedBorder: focusedBorder ?? InputBorder.none,
+              enabledBorder: enabledBorder ?? InputBorder.none,
+              errorBorder: errorBorder ?? InputBorder.none,
+              disabledBorder: disabledBorder ?? InputBorder.none,
+              hintStyle: hintStyle ??
+                  const TextStyle(
+                      color: Color(0xff9E9E9E),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+              hintText: (hintext),
+              label: label,
+              labelStyle: labelTextStyle,
+              labelText: labelText,
+              contentPadding: contentPadding,
+            ),
         keyboardType: keyboardType,
+
         inputFormatters: [
           if (kIsWeb) ThousandsFormatter(allowFraction: true),
           if (isCurrencyFormat) DecimalTextInputFormatter(decimalRange: 2),
           LengthLimitingTextInputFormatter(maxLength),
           ...inputFormatters ?? []
         ],
+        onFieldSubmitted: onFieldSubmitted,
+        minLines: minLines,
+        autofocus: autoFocus ?? false,
+
+        focusNode: focusScope,
+        onEditingComplete: onEditingComplete,
+
+        // enabled: false,
+        // autofocus: true,
+        maxLength: maxlenght,
+
+        textInputAction: textInputAction ?? TextInputAction.done,
+
+        validator: validate,
+        initialValue: controller == null ? initialValue : null,
+
+        autocorrect: true,
+        autovalidateMode: AutovalidateMode.always,
+
+        onSaved: onSave,
+
+        showCursor: true,
+        enabled: enable,
+        readOnly: isReadOnly ?? false,
       ),
     );
   }

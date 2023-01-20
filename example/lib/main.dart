@@ -1,5 +1,5 @@
-import 'package:currency_textfield_khmer/currency_textfield_khmer.dart';
 import 'package:flutter/material.dart';
+import 'package:textfield_kh/textfield_kh.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: CurrencyTextFieldKhmer(
+        child: TextFieldKh(
           height: 60,
           onchange: (value) {},
           controller: controller,
