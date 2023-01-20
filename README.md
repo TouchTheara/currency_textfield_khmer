@@ -1,4 +1,4 @@
-# CurrencyTextFieldKhmer Plugin
+# TextFieldKh Plugin
 
 
 A Package solve keyboard of textfield problem with local keyboard in asia of "," and "." and this package make easy to using and customization textfield like pro textfield. 
@@ -6,13 +6,13 @@ A Package solve keyboard of textfield problem with local keyboard in asia of ","
 ### Installation
 ```dart
 dependencies:
-      currency_textfield_khmer: ^0.0.2
+      textField_kh: ^0.0.6
 ```
 
 #### Usage
 ```dart
 
-    CurrencyTextFieldKhmer(
+    TextFieldKh(
           height: 60,
           onchange: (value) {},
           controller: controller,

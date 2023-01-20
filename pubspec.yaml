@@ -1,6 +1,6 @@
 name: textfield_kh
 description: A Package solve keyboard of textfield problem with local keyboard in asia of "," and "." and this package make easy to using and customization textfield like pro textfield. 
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/TouchTheara/textfield_kh
 
 environment:
